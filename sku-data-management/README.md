@@ -2,7 +2,11 @@
 
 ###### To run the application please follow the below steps
 
-1. unzip the file
+1. unzip the file or download the project from following GitHub URL
+
+   `https://github.com/madhukarsuryawanshi/inmar/tree/main`
+   
+
 2. Load the project in IDE
 3. Build the project using below command
    
