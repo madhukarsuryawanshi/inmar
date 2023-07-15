@@ -19,10 +19,10 @@ public class BulkStore implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        if(repository.count() <= 18) {
+        if(repository.count() <= 18) {
             Long count= buildObject().stream().map(e -> repository.save(e)).count();
             log.info("Total Count: {} ", count);
-//        }
+        }
 
 
 
