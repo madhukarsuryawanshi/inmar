@@ -1,5 +1,6 @@
 package com.inmar.skudatamanagement.controller;
 
+import com.inmar.skudatamanagement.entity.LocationEntity;
 import com.inmar.skudatamanagement.model.AuthenticationRequest;
 import com.inmar.skudatamanagement.model.AuthenticationResponse;
 import com.inmar.skudatamanagement.service.CredUserDetailService;
@@ -68,6 +69,21 @@ public class SkuController {
         List<LocationModel> matchedData = skuService.getMetaData(metaData);
 
         return new ResponseEntity<>(matchedData, HttpStatus.OK);
+    }
+
+    @PostMapping("/addLocation")
+    public ResponseEntity<LocationEntity> addLocation(@RequestBody LocationModel locationModel) {
+        return new ResponseEntity<>(skuService.addLocation(locationModel), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/updateLocation/{id}")
+    public ResponseEntity<LocationEntity> updateLocation(@RequestBody LocationModel locationModel, @PathVariable Integer id) {
+        return new ResponseEntity<>(skuService.updateLocation(locationModel, id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteLocation/{id}")
+    public ResponseEntity<String> updateLocation(@PathVariable Integer id) {
+        return new ResponseEntity<>(skuService.deleteLocation(id), HttpStatus.OK);
     }
 
 

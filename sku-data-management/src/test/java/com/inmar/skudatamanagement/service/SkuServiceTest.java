@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class SkuServiceTest {
@@ -158,6 +159,51 @@ public class SkuServiceTest {
             List<LocationModel> locationModel = skuService.getMetaData(arr);
             Assert.assertNotNull(locationModel);
         });
+    }
+
+    @Test
+    public void addLocationTest() {
+        List<LocationEntity> locationModels = mockLocationModel();
+        LocationEntity locationEntity = locationModels.get(0);
+        LocationModel locationModel = new LocationModel(locationEntity.getSkuName(),locationEntity.getLocation(),locationEntity.getDepartment(),locationEntity.getCategory(),locationEntity.getSubCategory());
+
+        Mockito.when(repository.save(locationEntity)).thenReturn(locationEntity);
+        Mockito.when(repository.findById(1)).thenReturn(Optional.ofNullable(locationEntity));
+        LocationEntity locationEntity1 = skuService.addLocation(locationModel);
+        Assertions.assertNull(locationEntity1);
+    }
+
+    @Test
+    public void updateLocationTest() {
+        List<LocationEntity> locationModels = mockLocationModel();
+        LocationEntity locationEntity = locationModels.get(0);
+        LocationModel locationModel = new LocationModel(locationEntity.getSkuName(),locationEntity.getLocation(),locationEntity.getDepartment(),locationEntity.getCategory(),locationEntity.getSubCategory());
+
+
+        Mockito.when(repository.findById(1)).thenReturn(Optional.ofNullable(locationModels.get(0)));
+        Mockito.when(repository.save(locationEntity)).thenReturn(locationEntity);
+
+        LocationEntity locationEntity1 = skuService.updateLocation(locationModel,1);
+        Assertions.assertNotNull(locationEntity1);
+
+
+
+    }
+
+    @Test
+    public void updateLocationWithIdNotAvailableTest() {
+        List<LocationEntity> locationModels = mockLocationModel();
+        LocationEntity locationEntity = locationModels.get(0);
+        LocationModel locationModel = new LocationModel(locationEntity.getSkuName(),locationEntity.getLocation(),locationEntity.getDepartment(),locationEntity.getCategory(),locationEntity.getSubCategory());
+
+
+        Mockito.when(repository.findById(1)).thenReturn(Optional.ofNullable(locationModels.get(0)));
+        Mockito.when(repository.save(locationEntity)).thenReturn(locationEntity);
+        Assertions.assertThrows(DataNotFoundException.class, ()-> {
+            LocationEntity locationEntity1 = skuService.updateLocation(locationModel,2);
+            Assertions.assertNull(locationEntity1);
+        });
+
 
     }
 

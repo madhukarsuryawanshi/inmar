@@ -36,6 +36,11 @@
 
 8. Repeat the 7th step for below URLs.
    
+
+   **_GET Operation_:**
+
+   `localhost:8080/api/v1/location`
+   
    `localhost:8080/api/v1/location/Permiter/department`
    
    `localhost:8080/api/v1/location/Permiter/department/Floral/category`
@@ -44,6 +49,27 @@
    
    `localhost:8080/api/v1/location/Permiter/department/Bakery/category/Bakery Bread/subcategory/Bagels`
 
+   **_POST Operation_**
 
-###### _Note: For this application H2 database has been used, while start up the application data will be loaded in H2 database._
+   `localhost:8080/api/v1/addLocation`
+
+   Payload:
+
+   {
+
+   "id": "test1",
+
+   "location": "loc1",
+
+   "department": "dept1",
+
+   "category": "cat1",
+
+   "subCategory": "subcat1"
+
+   }
+
+###### _Note: Data will be loaded at the time of startup the application, we can hit above end points. Also we can perform add, update, remove operations using this application._
+
+
 

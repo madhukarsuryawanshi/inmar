@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -140,6 +141,36 @@ public class SkuControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/matchSkuData?metaData=Permiter,Floral,Bouquets and Cut Flowers,Bouquets and Cut Flowers"))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }*/
+
+    @Test
+    public void addLocationTest() throws Exception {
+        String data = "{\n" +
+                "    \"id\": \"test1\",\n" +
+                "    \"location\": \"loc1\",\n" +
+                "    \"department\": \"dept1\",\n" +
+                "    \"category\": \"cat1\",\n" +
+                "    \"subCategory\": \"subcat1\"\n" +
+                "}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/addLocation")
+                .contentType(MediaType.APPLICATION_JSON).content(data).accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+    }
+
+    @Test
+    public void updateLocationTest() throws Exception {
+        String data = "{\n" +
+                "    \"id\": \"test1\",\n" +
+                "    \"location\": \"loc1\",\n" +
+                "    \"department\": \"dept1\",\n" +
+                "    \"category\": \"cat1\",\n" +
+                "    \"subCategory\": \"subcat1\"\n" +
+                "}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/updateLocation/1")
+                .contentType(MediaType.APPLICATION_JSON).content(data).accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
 
     private List<LocationModel> mockLocationModel() {
         LocationModel locationModel1 = new LocationModel("SKUDESC3","Permiter","Floral","Bouquets and Cut Flowers","Bouquets and Cut Flowers");

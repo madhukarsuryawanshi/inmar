@@ -11,6 +11,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -118,4 +120,47 @@ public class SkuService {
     private LocationModel tranfofrmLocationModel(LocationEntity locationEntity) {
         return new LocationModel(locationEntity.getSkuName(), locationEntity.getLocation(),locationEntity.getDepartment(),locationEntity.getCategory(), locationEntity.getSubCategory());
     }
+
+    public LocationEntity addLocation(LocationModel locationModel) {
+        LocationEntity locationEntity = transformLocationEntity(locationModel);
+
+        LocationEntity saveLocationEntity = repository.save(locationEntity);
+        return saveLocationEntity;
+    }
+
+    public LocationEntity updateLocation(LocationModel locationModel, Integer id) {
+        return repository.findById(id).map(locationEntity-> {
+            locationEntity = transformLocationEntity(locationModel);
+            locationEntity.setSkuId(id);
+            LocationEntity save = repository.save(locationEntity);
+            return save;
+
+        }).orElseThrow(() -> new DataNotFoundException("Id: " + id +" not available"));
+    }
+
+    public String deleteLocation(Integer id) {
+        Optional<LocationEntity> locationEntity = repository.findById(id);
+
+        if(locationEntity.isPresent()) {
+            repository.delete(repository.findById(id).get());
+            return "Record delete Successfully..";
+        } else {
+            log.info("ID: {} is not doesn't exist ", id);
+            throw new DataNotFoundException("ID: "+ id + " doesn't exist");
+        }
+    }
+
+    private LocationEntity transformLocationEntity(LocationModel locationModel) {
+        LocationEntity locationEntity = new LocationEntity();
+        locationEntity.setSkuName(locationModel.getId());
+        locationEntity.setLocation(locationModel.getLocation());
+        locationEntity.setDepartment(locationModel.getDepartment());
+        locationEntity.setCategory(locationModel.getCategory());
+        locationEntity.setSubCategory(locationModel.getSubCategory());
+        return locationEntity;
+    }
+
+
+
+
 }
