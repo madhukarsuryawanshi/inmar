@@ -25,7 +25,7 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = {"com.inmar.skudatamanagement.repository"}, entityManagerFactoryRef = "cfConsentEntityManager", transactionManagerRef = "cfConsentTransactionManager")
 @EnableTransactionManagement
 @Profile("dev")
-public class CfEmployeeDataSourceConfig {
+public class InmarSkuDataSourceConfig {
     @Autowired
     DatabaseProperties databaseProperties;
 
