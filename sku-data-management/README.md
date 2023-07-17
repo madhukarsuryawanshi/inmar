@@ -55,6 +55,7 @@
 
    Payload:
 
+
    {
 
    "id": "test1",
@@ -68,6 +69,27 @@
    "subCategory": "subcat1"
 
    }
+
+**_Updated Operation_**
+`localhost:8080/api/v1/updateLocation/2`
+{
+
+"id": "test1",
+
+"location": "loc1",
+
+"department": "dept1",
+
+"category": "cat1",
+
+"subCategory": "subcat1"
+
+}
+
+**Delete Operation**
+
+`localhost:8080/api/v1/deleteLocation/4`
+
 
 ###### _Note: Data will be loaded at the time of startup the application, we can hit above end points. Also we can perform add, update, remove operations using this application._
 
