@@ -10,10 +10,11 @@ public class MetaDataGlobalExceptionHandler {
 
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity handleDataNotFoundException(DataNotFoundException exception) {
-        return ResponseEntity.badRequest()
-                .body(ErrorResponse.builder().statusCode(HttpStatus.NOT_FOUND.toString())
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder().statusCode(HttpStatus.NOT_FOUND.toString())
                 .message(exception.getMessage())
                 .build());
+
 
     }
 }
